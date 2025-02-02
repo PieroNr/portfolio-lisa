@@ -1,3 +1,4 @@
+/*
 import axios from "axios";
 import Image from "next/image";
 
@@ -19,9 +20,23 @@ export default async function Home() {
 
                 <div key={projet.id}>
                     <h2 className="text-2xl">{projet.title}</h2>
-                    <Image src={urlApi + projet.preview.url} width={800} height={400} alt={projet.title} priority={true} />
+                    <Image src={urlApi + projet.preview.url} alt={projet.title} priority={true} width={projet.preview.width/2} height={projet.preview.height/2} />
                 </div>
             ))}
+        </div>
+    );
+}
+*/
+
+import Road3D from "@/components/Road3D";
+
+export default function Home() {
+    return (
+        <div style={{ height: "300vh" }}> {/* Page longue pour scroller */}
+            <h1 className="text-4xl text-center">Portfolio en 3D</h1>
+            <div style={{ position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh" }}>
+                <Road3D />
+            </div>
         </div>
     );
 }

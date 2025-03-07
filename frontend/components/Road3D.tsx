@@ -25,6 +25,7 @@ export default function Road3D() {
             new THREE.Vector3(8, 3, -15),
             new THREE.Vector3(6, -2, -22),
             new THREE.Vector3(2, 0, -30),
+            new THREE.Vector3(15, 7, -35),
         ]);
 
         // 🔹 Génération de la géométrie de la route
@@ -59,10 +60,10 @@ export default function Road3D() {
         geometry.setIndex(indices);
         geometry.computeVertexNormals();
 
-        // 🔹 Matériel de la route (sans couleur, juste la géométrie)
-        const material = new THREE.MeshStandardMaterial({ color: '#ff6f6f', side: THREE.DoubleSide });
+        const texture = new THREE.TextureLoader().load("/textures/road.png");
+        texture.wrapS = THREE.RepeatWrapping;
 
-        // 🔹 Création du mesh de la route
+        const material = new THREE.MeshStandardMaterial({ map: texture, side: THREE.DoubleSide });
         const road = new THREE.Mesh(geometry, material);
         scene.add(road);
 

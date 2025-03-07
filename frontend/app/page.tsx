@@ -1,42 +1,65 @@
-/*
-import axios from "axios";
-import Image from "next/image";
+"use client";
+import {useEffect, useState} from "react";
+import localFont from "next/font/local";
+import Loader from "@/components/Loader";
 
-type Projet = {
-    id: number;
-    title: string;
-    preview: any;
+const neima = localFont({
+    src: [{path: "../public/fonts/Neima.ttf"}], display: "swap",
+});
 
-};
-
-export default async function Home() {
-    const urlApi = process.env.NEXT_PUBLIC_API_URL;
-    const res = await axios.get(`${urlApi}/api/projets?populate=*`);
-    const projets: Projet[] = res.data.data;
-    return (
-        <div>
-            <h1 className="text-4xl font-bold">Mon Portfolio</h1>
-            {projets.map((projet) => (
-
-                <div key={projet.id}>
-                    <h2 className="text-2xl">{projet.title}</h2>
-                    <Image src={urlApi + projet.preview.url} alt={projet.title} priority={true} width={projet.preview.width/2} height={projet.preview.height/2} />
-                </div>
-            ))}
-        </div>
-    );
-}
-*/
-
-import Road3D from "@/components/Road3D";
+const cabinet = localFont({
+    src: [{path: "../public/fonts/Cabinet.ttf", weight: "800",},
+        {path: "../public/fonts/Cabinet.ttf", weight: "400"},
+    ],
+    display: "swap",
+});
 
 export default function Home() {
+    const [isLoaderVisible, setIsLoaderVisible] = useState(true);
+    const [loaderClass, setLoaderClass] = useState("");
+
+    const handleLoaderComplete = () => {
+        setLoaderClass("anim");
+
+    };
+
     return (
-        <div style={{ height: "300vh" }}> {/* Page longue pour scroller */}
-            <h1 className="text-4xl text-center">Portfolio en 3D</h1>
-            <div style={{ position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh" }}>
-                <Road3D />
+        <div className={'w-screen h-screen'}>
+            {isLoaderVisible && <div style={{ '--i': 1 }} className={loaderClass} ><Loader onComplete={handleLoaderComplete} /></div>}
+            <div className={`flex flex-col items-center justify-center h-screen w-screen gap-8 transition-opacity duration-1000`} style={{ '--i': 0 }}>
+                <h1 className={`text-9xl ${neima.className}`}>ELSSILA</h1>
+                <div className={`flex flex-col items-center justify-center`}>
+                    <p className={`text-4xl font-extrabold ${cabinet.className}`}>Vidéaste</p>
+                    <p className={`text-2xl ${cabinet.className}`}>Portfolio</p>
+                </div>
             </div>
+            <style jsx type={"scss"}>{`
+                $t: 1s;
+                $s: 2em;
+
+                @property --r {
+                    syntax: '<percentage>';
+                    initial-value: 0%;
+                    inherits: false
+                }
+
+                @keyframes lyr { 50% { z-index: 1 } }
+                @keyframes opacityAndDisplay { 
+                    0% { opacity: 1; display: block }
+                    99% { opacity: 0; display: block }
+                    100% { opacity: 0; display: none }
+                }
+
+                .anim {
+                    animation: opacityAndDisplay 1s forwards;
+                    
+                    
+                }
+
+            `}</style>
         </div>
     );
 }
+
+
+

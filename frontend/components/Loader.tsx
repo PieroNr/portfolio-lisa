@@ -13,6 +13,8 @@ interface LoaderProps {
 const Loader: React.FC<LoaderProps> = ({ onComplete, style }) => {
     const [counter, setCounter] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
+
 
     useEffect(() => {
         const incrementCounter = () => {
@@ -22,6 +24,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, style }) => {
                         return prevCounter + 1;
                     } else {
                         setIsPaused(true);
+                        setIsVisible(false);
                         setTimeout(() => onComplete(), 1000);
                         return prevCounter;
                     }
@@ -53,7 +56,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, style }) => {
     const formattedCounter = `${Math.floor(counter / 100)}:${(counter % 100).toString().padStart(2, '0')}`;
 
     return (
-        <div className={`bg-black absolute top-0 left-0 h-screen w-screen flex items-center justify-center transition-opacity duration-1000`} style={style}>
+        <div className={` absolute h-screen w-screen flex items-center justify-center transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
 <svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3387.65 1084.66" className={'w-1/3'}>
     <defs>
         <mask id="timeline-mask">

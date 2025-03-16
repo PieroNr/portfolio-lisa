@@ -10,7 +10,7 @@ interface LoaderProps {
     onComplete: () => void;
 }
 
-const Loader: React.FC<LoaderProps> = ({ onComplete, style }) => {
+const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
     const [counter, setCounter] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
@@ -57,7 +57,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, style }) => {
 
     return (
         <div className={` absolute h-screen w-screen flex items-center justify-center transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3387.65 1084.66" className={'w-1/3'}>
+<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3387.65 1084.66" className={'lg:w-1/3 md:w-1/2 w-3/4'} >
     <defs>
         <mask id="timeline-mask">
             <g id="Layer_1" data-name="Layer 1" fill={"#fff"}>
@@ -247,7 +247,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, style }) => {
         <path
               d="M3351.02,591.26H42.15c-20.24,0-36.71-16.43-36.71-36.63,0-9.76,3.83-18.97,10.78-25.92,6.96-6.95,16.17-10.78,25.93-10.78h3308.87c20.2,0,36.64,16.46,36.64,36.7,0,9.57-3.89,19.01-10.67,25.89-6.94,6.94-16.14,10.74-25.96,10.74ZM42.15,532.67c-5.82,0-11.33,2.3-15.5,6.47-4.17,4.17-6.46,9.67-6.46,15.5,0,12.07,9.85,21.89,21.97,21.89h3308.87c5.88,0,11.39-2.27,15.5-6.39,4.05-4.11,6.39-9.77,6.39-15.5,0-12.11-9.82-21.96-21.89-21.96H42.15Z"/>
         <circle cx={cx} cy="554.62" r="63.83" />
-        <text x="150" y="800" fill="white" fontSize="125" textAnchor="middle" fontFamily={cabinet}>{formattedCounter}</text>
+        <text x="150" y="800" fill="white" fontSize="125" textAnchor="middle">{formattedCounter}</text>
     </g>
 
     <rect width="100%" height="100%" fill="#102526" mask="url(#timeline-mask)" />

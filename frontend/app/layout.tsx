@@ -20,13 +20,14 @@ const geistMono = Geist_Mono({
 
 const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: true });
 
-export default function RootLayout({ children, pageProps }: { children: any; pageProps: Metadata }) {
+export default function RootLayout({ children }: { children: any}) {
     const ref = useRef(null);
 
     return (
         <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Layout ref={ref}>
+
             <Scene className='pointer-events-none' eventSource={ref} eventPrefix='client'>
                 <ShaderGradient
                     control='query'

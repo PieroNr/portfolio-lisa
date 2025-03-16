@@ -1,18 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import localFont from "next/font/local";
 import Loader from "@/components/Loader";
 import Links from "@/components/Links";
-
-const neima = localFont({
-    src: [{ path: "../public/fonts/Neima.ttf" }], display: "swap",
-});
-
-const cabinet = localFont({
-    src: [{ path: "../public/fonts/Cabinet.ttf", weight: "800" },
-        { path: "../public/fonts/Cabinet.ttf", weight: "400" }],
-    display: "swap",
-});
 
 export default function Home() {
     const [isLoaderVisible, setIsLoaderVisible] = useState(true);
@@ -73,14 +62,14 @@ export default function Home() {
         <div className={'w-screen h-screen flex justify-center'}>
             <div ref={loaderRef} style={{backgroundColor: '#0b1111'}} className={`overflow-hidden w-screen h-screen absolute duration-1000 ${loaderClass} ${isButtonClicked ? 'hide' : ''}`}><Loader onComplete={handleLoaderComplete} /></div>
             <div className={`flex flex-col items-center justify-center h-screen w-screen gap-8 transition-opacity duration-2000 ${isLoaderVisible ? 'opacity-0' : 'opacity-100'}`}>
-                <h1 ref={titleRef} className={`lg:text-9xl md:text-9xl text-7xl ${neima.className} ${isButtonClicked ? 'hide' : ''}`}>ELSSILA</h1>
+                <h1 ref={titleRef} className={`lg:text-9xl md:text-9xl text-7xl font-title ${isButtonClicked ? 'hide' : ''}`}>ELSSILA</h1>
                 <div className={`flex flex-col items-center justify-center ${isButtonClicked ? 'hide' : ''}`}>
-                    <p className={`masked text-4xl font-extrabold ${cabinet.className}`}>Vidéaste</p>
-                    <p className={`masked text-2xl ${cabinet.className}`}>Portfolio</p>
+                    <p className={`masked text-4xl font-extrabold font-body`}>Vidéaste</p>
+                    <p className={`masked text-2xl font-body`}>Portfolio</p>
 
                 </div>
                 <div ref={buttonRef} onClick={handleButtonClick} className={`border hover:border-white border-gray-400 p-4 rounded-full flex justify-center items-center absolute bottom-30 cursor-pointer border-animation hover:text-white text-gray-400 ${isButtonClicked ? 'hide-slow' : ''}`} style={{width: '125px', aspectRatio: '1/1'}}>
-                    <p className={`text-xl duration-500 font-semibold  ${cabinet.className} `}>Entrer
+                    <p className={`text-xl duration-500 font-semibold font-body `}>Entrer
                     </p>
                 </div>
                 <div className={`absolute bottom-10 right-8`}><Links/></div>

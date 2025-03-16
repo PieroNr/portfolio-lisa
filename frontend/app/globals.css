@@ -1,5 +1,25 @@
 @import "tailwindcss";
 
+
+@font-face {
+  font-family: 'Neima';
+  src: url('/fonts/Neima.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cabinet';
+  src: url('/fonts/Cabinet.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@theme {
+  --font-title: "Neima", sans-serif;
+  --font-body: "Cabinet", sans-serif;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;

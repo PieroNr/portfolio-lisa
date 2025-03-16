@@ -1,11 +1,5 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
     reactStrictMode: true,
-    experimental: {
-        reactRoot: true,
-        serverComponents: true,
-        appDir: true,
-    },
     webpack: (config, options) => {
         config.module.rules.push({
             test: /\.(glsl|vs|fs|vert|frag)$/,
@@ -13,7 +7,5 @@ const nextConfig = {
         });
 
         return config;
-    },
+    }
 };
-
-module.exports = nextConfig;

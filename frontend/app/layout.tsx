@@ -1,31 +1,19 @@
 "use client";
 
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import dynamic from "next/dynamic";
 import { useRef } from "react";
 import Layout from '@/components/dom/Layout';
 import {ShaderGradient} from "@shadergradient/react";
 
-const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
-});
-
 const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: true });
 
-export default function RootLayout({ children }: { children: any}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
     const ref = useRef(null);
 
     return (
         <html lang="en">
-        <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <body>
         <Layout ref={ref}>
 
             <Scene className='pointer-events-none' eventSource={ref} eventPrefix='client'>

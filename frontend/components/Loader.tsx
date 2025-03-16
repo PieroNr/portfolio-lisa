@@ -1,10 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import localFont from "next/font/local";
-
-const cabinet = localFont({
-    src: [{ path: "../public/fonts/Cabinet.ttf", weight: "800" },],
-    display: "swap",
-});
 
 interface LoaderProps {
     onComplete: () => void;
@@ -47,7 +41,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
             clearInterval(interval);
             clearInterval(pauseInterval);
         };
-    }, [isPaused]);
+    }, [isPaused, onComplete]);
 
     const svgWidth = 3387.65;
     const startCx = 63.83;

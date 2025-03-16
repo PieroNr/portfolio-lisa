@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useRef } from "react";
 import Layout from '@/components/dom/Layout';
 import {ShaderGradient} from "@shadergradient/react";
+import { Analytics } from "@vercel/analytics/react"
 
 const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: true });
 
@@ -23,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 />
             </Scene>
             {children}
-
+            <Analytics />
 
         </Layout>
         </body>

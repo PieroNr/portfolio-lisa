@@ -12,6 +12,7 @@
     "@react-spring/three": "^9.7.5",
     "@react-three/fiber": "^9.0.4",
     "@shadergradient/react": "^2.0.22",
+    "@tailwindcss/oxide": "^4.0.14",
     "@tailwindcss/postcss": "^4.0.9",
     "axios": "^1.7.9",
     "framer-motion": "^12.4.7",

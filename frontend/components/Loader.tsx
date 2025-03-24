@@ -233,7 +233,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
             </g>
         </mask>
         <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style={{ stopColor: "#E7541C", stopOpacity: 1 }} />
+            <stop offset="0%" style={{ stopColor: "#e7231c", stopOpacity: 1 }} />
             <stop offset="100%" style={{ stopColor: "red", stopOpacity: 1 }} />
         </linearGradient>
     </defs>

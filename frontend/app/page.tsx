@@ -3,7 +3,6 @@ import { useState, useRef, useEffect } from "react";
 import Loader from "@/components/Loader";
 import Links from "@/components/Links";
 import ThreeScene from "@/components/ThreeScene";
-import * as THREE from 'three';
 
 export default function Home() {
     const [isLoaderVisible, setIsLoaderVisible] = useState(true);

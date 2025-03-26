@@ -2,11 +2,14 @@
 import { useState, useRef, useEffect } from "react";
 import Loader from "@/components/Loader";
 import Links from "@/components/Links";
+import ThreeScene from "@/components/ThreeScene";
+import * as THREE from 'three';
 
 export default function Home() {
     const [isLoaderVisible, setIsLoaderVisible] = useState(true);
     const [loaderClass, setLoaderClass] = useState("");
     const [isButtonClicked, setIsButtonClicked] = useState(false);
+    const [showThreeScene, setShowThreeScene] = useState(false);
 
     const titleRef = useRef<HTMLHeadingElement>(null);
     const loaderRef = useRef<HTMLDivElement>(null);
@@ -33,6 +36,11 @@ export default function Home() {
 
     const handleButtonClick = () => {
         setIsButtonClicked(true);
+
+        setTimeout(() => {
+            setShowThreeScene(true);
+
+        }, 2000);
     };
 
     useEffect(() => {
@@ -66,7 +74,7 @@ export default function Home() {
     return (
         <div className={'w-screen h-screen flex justify-center'}>
             <div ref={loaderRef} style={{backgroundColor: '#000'}} className={`loader-bg overflow-hidden w-screen h-screen absolute duration-1000 ${loaderClass} ${isButtonClicked ? 'hide' : ''}`}><Loader onComplete={handleLoaderComplete} /></div>
-            <div className={`flex flex-col items-center justify-center h-screen w-screen gap-8 transition-opacity duration-2000 ${isLoaderVisible ? 'opacity-0' : 'opacity-100'}`}>
+            <div className={`flex flex-col items-center justify-center h-screen w-screen gap-8 transition-all duration-2000 ${isLoaderVisible ? 'opacity-0' : ''} ${isButtonClicked ? '' : 'bg-transparent'}`}>
                 <h1 ref={titleRef} className={`lg:text-9xl md:text-9xl text-7xl font-title ${isButtonClicked ? 'hide' : ''}`}>ELSSILA</h1>
                 <div className={`flex flex-col items-center justify-center ${isButtonClicked ? 'hide' : ''}`}>
                     <p className={`masked text-4xl font-extrabold font-body`}>Vidéaste</p>
@@ -77,8 +85,11 @@ export default function Home() {
                     <p className={`text-xl duration-500 font-semibold font-body `}>Entrer
                     </p>
                 </div>
+                {showThreeScene && <ThreeScene/>}
                 <div className={`absolute bottom-10 right-8`}><Links/></div>
             </div>
+
+
             <style jsx type={"scss"}>{`
                 
                 @keyframes grain {

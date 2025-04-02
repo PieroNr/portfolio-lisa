@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "sudo next dev",
-    "build": "next build",
+    "build": "sudo next build",
     "start": "next start",
     "lint": "next lint"
   },

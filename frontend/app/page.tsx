@@ -14,6 +14,7 @@ export default function Home() {
     const titleRef = useRef<HTMLHeadingElement>(null);
     const loaderRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLDivElement>(null);
+    const roadRef = useRef<HTMLDivElement>(null);
 
     const handleLoaderComplete = () => {
         setLoaderClass("compress");
@@ -36,11 +37,10 @@ export default function Home() {
 
     const handleButtonClick = () => {
         setIsButtonClicked(true);
-
+        setShowThreeScene(true);
         setTimeout(() => {
-            setShowThreeScene(true);
-
-        }, 2000);
+            roadRef.current?.classList.add("road");
+        }, 1500);
     };
 
     useEffect(() => {
@@ -91,7 +91,9 @@ export default function Home() {
                         <Menu/>
                         </div>
                         <h1 ref={titleRef} className={`lg:text-6xl md:text-6xl text-4xl font-title absolute lg:top-7 lg:left-7 md:top-7 md:left-7 top-4 left-4`}>ELSSILA</h1>
+                        <div ref={roadRef}  className={`absolute top-0 left-0 w-screen h-screen overflow-hidden opacity-0`}>
                         <ThreeScene/>
+                        </div>
                     </>
                 }
                 <div className={`absolute bottom-10 right-8`}><Links/></div>
@@ -158,6 +160,10 @@ export default function Home() {
                     animation: disappearEffect 2s cubic-bezier(1,.01,.76,1) forwards;
                 }
                 
+                .road {
+                    animation: appearEffect 2s forwards;
+                }
+                
                 @keyframes sonarEffect {
                     0% {
                         opacity: 0;
@@ -195,6 +201,9 @@ export default function Home() {
                     0% {
                         opacity: 1;
                     }
+                    1% {
+                        opacity: 1;
+                    }
                     99%
                     {
                         opacity: 0;
@@ -202,6 +211,16 @@ export default function Home() {
                     100% {
                         opacity: 0;
                         display: none ;
+                    }
+                }
+
+                @keyframes appearEffect {
+                    0% {
+                        opacity: 0;
+                    
+                    }
+                    100% {
+                        opacity: 1;
                     }
                 }
             `}</style>

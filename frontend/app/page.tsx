@@ -81,22 +81,22 @@ export default function Home() {
                     <p className={`masked text-2xl font-body`}>Portfolio</p>
 
                 </div>
-                <div ref={buttonRef} onClick={handleButtonClick} className={`border hover:border-white border-gray-400 p-4 rounded-full flex justify-center items-center absolute bottom-30 cursor-pointer border-animation hover:text-white text-gray-400 ${isButtonClicked ? 'hide-slow' : ''}`} style={{width: '125px', aspectRatio: '1/1'}}>
+                <div ref={buttonRef} onClick={handleButtonClick} className={`z-10 border hover:border-white border-gray-400 p-4 rounded-full flex justify-center items-center absolute bottom-30 cursor-pointer border-animation hover:text-white text-gray-400 ${isButtonClicked ? 'hide-slow' : ''}`} style={{width: '125px', aspectRatio: '1/1'}}>
                     <p className={`text-xl duration-500 font-semibold font-body `}>Entrer
                     </p>
                 </div>
-                {showThreeScene &&
+
                     <>
-                        <div ref={roadRef}  className={`absolute top-0 left-0 w-screen h-screen overflow-hidden opacity-0`}>
+                        <div ref={roadRef}  className={`absolute top-0 left-0 w-screen h-screen overflow-hidden opacity-0 z-0 pointer-events-none`}>
                         <div className={`absolute lg:right-7 md:top-7 md:right-7 top-4 right-4 z-10`}>
                         <Menu/>
                         </div>
-                        <h1 ref={titleRef} className={`lg:text-6xl md:text-6xl text-4xl font-title absolute lg:top-7 lg:left-7 md:top-7 md:left-7 top-4 left-4`}>ELSSILA</h1>
+                        <h1 className={`lg:text-6xl md:text-6xl text-4xl font-title absolute lg:top-7 lg:left-7 md:top-7 md:left-7 top-4 left-4`}>ELSSILA</h1>
 
                         <ThreeScene/>
                         </div>
                     </>
-                }
+
                 <div className={`absolute bottom-10 right-8`}><Links/></div>
             </div>
 
@@ -163,6 +163,8 @@ export default function Home() {
                 
                 .road {
                     animation: appearEffect 2s forwards;
+                    pointer-events: auto;
+                    z-index: 10;
                 }
                 
                 @keyframes sonarEffect {

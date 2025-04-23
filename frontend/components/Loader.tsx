@@ -11,7 +11,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
     const [isPaused, setIsPaused] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
 
-    useLoader(TextureLoader, "mel.mp4");
+    useLoader.preload(TextureLoader, "mel.mp4");
 
     useEffect(() => {
         const incrementCounter = () => {

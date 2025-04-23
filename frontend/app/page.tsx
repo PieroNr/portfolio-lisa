@@ -87,11 +87,12 @@ export default function Home() {
                 </div>
                 {showThreeScene &&
                     <>
+                        <div ref={roadRef}  className={`absolute top-0 left-0 w-screen h-screen overflow-hidden opacity-0`}>
                         <div className={`absolute lg:right-7 md:top-7 md:right-7 top-4 right-4 z-10`}>
                         <Menu/>
                         </div>
                         <h1 ref={titleRef} className={`lg:text-6xl md:text-6xl text-4xl font-title absolute lg:top-7 lg:left-7 md:top-7 md:left-7 top-4 left-4`}>ELSSILA</h1>
-                        <div ref={roadRef}  className={`absolute top-0 left-0 w-screen h-screen overflow-hidden opacity-0`}>
+
                         <ThreeScene/>
                         </div>
                     </>

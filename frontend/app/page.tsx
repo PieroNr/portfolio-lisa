@@ -9,7 +9,6 @@ export default function Home() {
     const [isLoaderVisible, setIsLoaderVisible] = useState(true);
     const [loaderClass, setLoaderClass] = useState("");
     const [isButtonClicked, setIsButtonClicked] = useState(false);
-    const [showThreeScene, setShowThreeScene] = useState(false);
 
     const titleRef = useRef<HTMLHeadingElement>(null);
     const loaderRef = useRef<HTMLDivElement>(null);
@@ -37,7 +36,6 @@ export default function Home() {
 
     const handleButtonClick = () => {
         setIsButtonClicked(true);
-        setShowThreeScene(true);
         setTimeout(() => {
             roadRef.current?.classList.add("road");
         }, 1500);

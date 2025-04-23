@@ -11,9 +11,9 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
     const [isPaused, setIsPaused] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
 
-    useLoader.preload(TextureLoader, "mel.mp4");
 
     useEffect(() => {
+        import('./ThreeScene')
         const incrementCounter = () => {
             if (!isPaused) {
                 setCounter(prevCounter => {

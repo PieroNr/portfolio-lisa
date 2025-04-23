@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import {useLoader} from "@react-three/fiber";
+import {TextureLoader} from "three";
 
 interface LoaderProps {
     onComplete: () => void;
@@ -9,6 +11,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
     const [isPaused, setIsPaused] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
 
+    useLoader(TextureLoader, "mel.mp4");
 
     useEffect(() => {
         const incrementCounter = () => {

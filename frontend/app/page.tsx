@@ -95,7 +95,7 @@ export default function Home() {
                         </div>
                     </>
 
-                <div className={`absolute bottom-10 right-8`}><Links/></div>
+                <div className={`absolute bottom-10 right-8 z-10`}><Links/></div>
             </div>
 
 

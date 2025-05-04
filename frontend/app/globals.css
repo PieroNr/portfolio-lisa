@@ -71,11 +71,11 @@ a {
 @keyframes slideIn {
     0% {
         right: -100%;
-        transform: skewX(20deg);
+        transform: skewX(-25deg);
     }
   to {
     right: -10%;
-    transform: skewX(-10deg);
+    transform: skewX(5deg);
     opacity: 0.8;
   }
 }

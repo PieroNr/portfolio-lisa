@@ -3,6 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { MediaBillboard } from "./MediaBillboard";
 import { MediaPin} from "@/components/MediaPin";
+import {RisingCylinders} from "@/components/RisingCylinders";
 
 const mediaUrls = [
     "test-img.jpg",
@@ -45,7 +46,7 @@ const generateParallelLines = (offset: number) => {
     return new THREE.BufferGeometry().setFromPoints(parallelPoints);
 };
 
-const CameraController = ({ selectedPosition }: { selectedPosition: THREE.Vector3 | null }) => {
+const CameraController = ({ selectedPosition, cameraRef }: { selectedPosition: THREE.Vector3 | null; cameraRef: React.MutableRefObject<THREE.Vector3>; }) => {
     const [scrollProgress, setScrollProgress] = useState(0);
     const targetProgress = useRef(0);
     const directionRef = useRef(1);
@@ -109,6 +110,8 @@ const CameraController = ({ selectedPosition }: { selectedPosition: THREE.Vector
         camera.position.set(position.x, position.y + 1, position.z);
         camera.lookAt(lookAtPosition);
         lookAtRef.current.copy(lookAtPosition); // reset lerp target
+        cameraRef.current.copy(camera.position);
+
     });
 
     return null;
@@ -180,39 +183,42 @@ const MediaAlongTrack = ({ onMediaClick }: { onMediaClick: (pos: THREE.Vector3) 
 
 const ThreeScene = () => {
     const [selectedMediaPosition, setSelectedMediaPosition] = useState<THREE.Vector3 | null>(null);
+    const cameraPositionRef = useRef(new THREE.Vector3());
 
     return (
         <>
             {selectedMediaPosition && (
                 <>
-                    <div className="overlay" />
+                    <div className="overlay">
+                        <button
+                            title="Fermer"
+                            className="group cursor-pointer outline-none hover:rotate-90 duration-300 absolute left-8 top-1/8 z-10"
+                            onClick={() => setSelectedMediaPosition(null)}
 
-                    <button
-                    title="Add New"
-                    className="group cursor-pointer outline-none hover:rotate-90 duration-300 absolute left-1/2 top-1/8 z-10"
-                    onClick={() => setSelectedMediaPosition(null)}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="50px"
+                                height="50px"
+                                viewBox="0 0 24 24"
+                                className="stroke-white fill-none group-active:stroke-zinc-200  duration-300 rotate-45"
+                            >
+                                <path
+                                    d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
+                                    stroke-width="0.5"
+                                ></path>
+                                <path d="M8 12H16" stroke-width="1"/>
+                                <path d="M12 16V8" stroke-width="1"/>
+                            </svg>
+                        </button>
+                    </div>
 
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="50px"
-                        height="50px"
-                        viewBox="0 0 24 24"
-                        className="stroke-white fill-none group-active:stroke-zinc-200  duration-300 rotate-45"
-                    >
-                        <path
-                            d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
-                            stroke-width="0.5"
-                        ></path>
-                        <path d="M8 12H16" stroke-width="1"/>
-                        <path d="M12 16V8" stroke-width="1"/>
-                    </svg>
-                </button>
+
 </>
 
             )}
         <Canvas camera={{ position: [0, 10, 20], far: 1000 }}>
-            <CameraController selectedPosition={selectedMediaPosition}/>
+            <CameraController selectedPosition={selectedMediaPosition} cameraRef={cameraPositionRef} />
             <ambientLight intensity={0.5} />
             {[trackWidth, -trackWidth, trackWidth * 2, -trackWidth * 2].map((offset, index) => (
                 <line key={index}  width={10}>
@@ -227,6 +233,13 @@ const ThreeScene = () => {
             ))}
             <MovingSpheres />
             <MediaAlongTrack onMediaClick={setSelectedMediaPosition} />
+            <RisingCylinders
+                cameraPosition={cameraPositionRef.current}
+                triggerPosition={curve.getPoint(0.25)} // 25% du chemin
+            /><RisingCylinders
+                cameraPosition={cameraPositionRef.current}
+                triggerPosition={curve.getPoint(0.60)} // 25% du chemin
+            />
         </Canvas>
         </>
     );

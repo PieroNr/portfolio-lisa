@@ -56,6 +56,30 @@ a {
   text-decoration: none;
 }
 
+.overlay {
+  position: absolute;
+  top: 0;
+  opacity: 0.5;
+  right: -100%;
+  width: 60vw;
+  height: 100vh;
+  background: black;
+  animation: slideIn 0.8s forwards ease-in-out;
+  z-index: 5;
+}
+
+@keyframes slideIn {
+    0% {
+        right: -100%;
+        transform: skewX(20deg);
+    }
+  to {
+    right: -10%;
+    transform: skewX(-10deg);
+    opacity: 0.8;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

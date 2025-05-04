@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { MediaBillboard } from "./MediaBillboard";
+import { MediaPin} from "@/components/MediaPin";
 
 const mediaUrls = [
     "test-img.jpg",
@@ -69,13 +70,17 @@ const CameraController = ({ selectedPosition }: { selectedPosition: THREE.Vector
             const direction = new THREE.Vector3().subVectors(selectedPosition, new THREE.Vector3()).normalize();
 
             // Position finale de la caméra (5 unités en arrière)
-            const offset = direction.clone().multiplyScalar(5);
+            const offset = direction.clone().multiplyScalar(5.5);
             cameraTargetPosition.current = selectedPosition.clone().sub(offset);
             cameraTargetPosition.current.y = selectedPosition.y;
 
-            // Point à regarder → un peu à droite du média
-            const right = new THREE.Vector3(1, 0, 0); // direction droite globale
-            const lookOffset = right.clone().multiplyScalar(2); // ajuste ici la "quantité de décalage"
+            const cameraToMedia = new THREE.Vector3().subVectors(selectedPosition, cameraTargetPosition.current).normalize();
+
+            const up = new THREE.Vector3(0, 1, 0);
+
+            const right = new THREE.Vector3().crossVectors(up, cameraToMedia).normalize();
+
+            const lookOffset = right.multiplyScalar(-2.2); // valeur ajustable
             lookTargetPosition.current = selectedPosition.clone().add(lookOffset);
         }
     }, [selectedPosition]);
@@ -86,7 +91,7 @@ const CameraController = ({ selectedPosition }: { selectedPosition: THREE.Vector
             camera.position.lerp(cameraTargetPosition.current, 0.1);
 
             // Elle regarde vers une position légèrement à droite du média
-            lookAtRef.current.lerp(lookTargetPosition.current, 0.1);
+            lookAtRef.current.lerp(lookTargetPosition.current, 0.5);
             camera.lookAt(lookAtRef.current);
             return;
         }
@@ -151,7 +156,13 @@ const MediaAlongTrack = ({ onMediaClick }: { onMediaClick: (pos: THREE.Vector3) 
                 const offsetPos = new THREE.Vector3().copy(point).addScaledVector(perpendicular, offset * offsetDir);
                 offsetPos.y += 2;
 
+                const directionToCenter = new THREE.Vector3(0, 0, 0).sub(offsetPos).setY(0).normalize();
+                const offsetpin = directionToCenter.multiplyScalar(1); // valeur de rapprochement
+                const pinPosition = offsetPos.clone().add(offsetpin);
+                pinPosition.y = 0.3
+
                 return (
+                    <>
                     <MediaBillboard
                         key={index}
                         url={url}
@@ -159,6 +170,8 @@ const MediaAlongTrack = ({ onMediaClick }: { onMediaClick: (pos: THREE.Vector3) 
                         scale={[4, 4, 3]}
                         onClick={() => onMediaClick(offsetPos.clone())}
                     />
+                        <MediaPin position={pinPosition} height={1.7} />
+                    </>
                 );
             })}
         </>
@@ -169,6 +182,35 @@ const ThreeScene = () => {
     const [selectedMediaPosition, setSelectedMediaPosition] = useState<THREE.Vector3 | null>(null);
 
     return (
+        <>
+            {selectedMediaPosition && (
+                <>
+                    <div className="overlay" />
+
+                    <button
+                    title="Add New"
+                    className="group cursor-pointer outline-none hover:rotate-90 duration-300 absolute left-1/2 top-1/8 z-10"
+                    onClick={() => setSelectedMediaPosition(null)}
+
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="50px"
+                        height="50px"
+                        viewBox="0 0 24 24"
+                        className="stroke-white fill-none group-active:stroke-zinc-200  duration-300 rotate-45"
+                    >
+                        <path
+                            d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
+                            stroke-width="0.5"
+                        ></path>
+                        <path d="M8 12H16" stroke-width="1"/>
+                        <path d="M12 16V8" stroke-width="1"/>
+                    </svg>
+                </button>
+</>
+
+            )}
         <Canvas camera={{ position: [0, 10, 20], far: 1000 }}>
             <CameraController selectedPosition={selectedMediaPosition}/>
             <ambientLight intensity={0.5} />
@@ -186,6 +228,7 @@ const ThreeScene = () => {
             <MovingSpheres />
             <MediaAlongTrack onMediaClick={setSelectedMediaPosition} />
         </Canvas>
+        </>
     );
 };
 
